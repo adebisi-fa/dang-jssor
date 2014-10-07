@@ -1,6 +1,6 @@
 dang-jssor
 ==========
-A directive for the JSSOR slider plugin on jssor.com.
+An AngularJS directive for the powerful JSSOR slider plugin, jssor.com
 
 ##Why?
 
