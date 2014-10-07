@@ -1,0 +1,33 @@
+{
+  "name": "dang-jssor",
+  "version": "0.0.3",
+  "homepage": "https://github.com/adebisi-fa/dang-jssor",
+  "authors": [
+    "ADEBISI Foluso A <adebisi-fa@live.com>"
+  ],
+  "description": "A directive for the JSSOR slider framework (http://jssor.com)",
+  "main": "build/*",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "angular",
+    "jssor",
+    "framework",
+    "component",
+    "slider",
+    "angular",
+    "slider"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jssor-slider": "*"
+  }
+}
