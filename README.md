@@ -10,7 +10,7 @@ This component depends on the official jssor distribution, available on both jss
 
 ##Usage
 
-Usage guidelines goes here.
+Usage guidelines coming soon.
 
 ##Build
 
