@@ -25,7 +25,7 @@ Example:
         <!-- Other slider configuration UI definition here -->
     </div>
     
-See the demo page hosted at http://dang-jssor.apphb.com.  The source of the demo is available [in this repository](https://github.com/adebisi-fa/dang-jssor/tree/master/demo).
+See the demo page hosted [here](http://dang-jssor.apphb.com/index.html).  The source of this demo is available [here](https://github.com/adebisi-fa/dang-jssor/tree/master/demo) in this repository.
 
 ##Build
 
