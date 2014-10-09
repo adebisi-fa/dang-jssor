@@ -18,8 +18,14 @@ This component depends on the official jssor distribution, available on both jss
 Example:
 
     <div class="slides-container" enable-jssor jssor-options="scope-object-variable" jssor-trigger='true'>
-        <!-- Other UI goes here. -->
+        <div u="slides">
+            <div> ... </div>
+            <!-- Other slides here -->
+        </div>
+        <!-- Other slider configuration UI definition here -->
     </div>
+    
+See the demo page hosted at http://dang-jssor.apphb.com.  The source of the demo is available [in this repository](https://github.com/adebisi-fa/dang-jssor/tree/master/demo).
 
 ##Build
 
