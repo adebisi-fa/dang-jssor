@@ -1,3 +1,4 @@
+/// <vs AfterBuild='default' />
 /**
  * Created by Adebisi-FA on 10/7/2014.
  */
@@ -28,6 +29,12 @@ module.exports = function (grunt) {
                     {
                         dest: "build/<%= buildDir %>/jssor-slider/images/",
                         src: "bower_components/jssor-slider/img/*",
+                        expand: true,
+                        flatten: true
+                    },
+                    {
+                        src: "build/<%= buildDir %>/<%= pkg.name %>.min.js",
+                        dest: "demo/scripts/<%= buildDir %>/",
                         expand: true,
                         flatten: true
                     }
