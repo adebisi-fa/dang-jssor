@@ -24,7 +24,7 @@ angular.module("dang-jssor", [])
 	                    container.attr("id", new Date().getTime());
 										}
 
-	                if (scope.jssorOptions == undefined) {
+	                if (scope.jssorOptions === undefined) {
 	                	scope.jssorOptions = {};
 	                }
 
@@ -61,7 +61,7 @@ angular.module("dang-jssor", [])
 	                    scope.jssorObject = handle;
 										}
 
-                	if (scope.jssorOptions.$StartIndex == undefined || scope.jssorOptions.$StartIndex == null) {
+                	if (scope.jssorOptions.$StartIndex === undefined || scope.jssorOptions.$StartIndex === null) {
                 		scope.jssorOptions.$StartIndex = 0;
 									}
 
