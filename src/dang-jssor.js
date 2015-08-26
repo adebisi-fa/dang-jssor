@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module("dang-jssor", [])
 	.factory("jssorServices", function () {
 		return {
@@ -18,16 +20,15 @@ angular.module("dang-jssor", [])
 	            if (attrs.jssorTrigger == 'true') {
 	                var container = $(element).closest('.slides-container');
 
-	                if (!container.attr("id"))
+	                if (!container.attr("id")) {
 	                    container.attr("id", new Date().getTime());
+										}
 
-	                if (scope.jssorOptions == undefined)
-	                {
-	                	console.log("I reassigned options here!");
+	                if (scope.jssorOptions === undefined) {
 	                	scope.jssorOptions = {};
 	                }
 
-	                var slider = new $JssorSlider$(container.attr("id"), scope.jssorOptions);
+	                var slider = new $JssorSlider$(container.attr("id"), scope.jssorOptions); // jshint ignore:line
 
                 	var handle = {
                         slidesCount: slider.$SlidesCount(),
@@ -52,14 +53,17 @@ angular.module("dang-jssor", [])
                         }
                     };
 
-                	if (scope.jssorOptions)
+                	if (scope.jssorOptions) {
                     	scope.jssorOptions.handle = handle;
+										}
 
-	                if (scope.jssorObject)
+	                if (scope.jssorObject) {
 	                    scope.jssorObject = handle;
+										}
 
-                	if (scope.jssorOptions.$StartIndex == undefined || scope.jssorOptions.$StartIndex == null)
+                	if (scope.jssorOptions.$StartIndex === undefined || scope.jssorOptions.$StartIndex === null) {
                 		scope.jssorOptions.$StartIndex = 0;
+									}
 
                 	handle.playTo(scope.jssorOptions.$StartIndex);
 
@@ -67,7 +71,7 @@ angular.module("dang-jssor", [])
 	                	scope.jssorOptions.onReady();
 	                };
 
-	                slider.$On($JssorSlider$.$EVT_PARK, function (slideIndex, fromIndex) {
+	                slider.$On($JssorSlider$.$EVT_PARK, function (slideIndex, fromIndex) { // jshint ignore:line
 	                    var status = null;
 
 	                    scope.$emit("JssorSliderChanged", status = {
@@ -76,11 +80,12 @@ angular.module("dang-jssor", [])
 	                        fromIndex: fromIndex
 	                    });
 
-	                    if (scope.jssorOnChanged)
+	                    if (scope.jssorOnChanged) {
 	                        scope.jssorOnChanged({ jssorData: status });
+											}
 
 	                    scope.jssorOptions.status = status;
-	                    
+
 	                    //if (scope.jssorOptions.name) {
 	                    //    console.log("SliderChanged:", scope.jssorOptions.name, angular.toJson(status));
 	                    //}
@@ -88,5 +93,5 @@ angular.module("dang-jssor", [])
 	                });
 	            }
 	        }
-	    }
+	    };
 	});
