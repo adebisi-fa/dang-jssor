@@ -1,11 +1,4 @@
 angular.module("dang-jssor", [])
-	.factory("jssorServices", function () {
-		return {
-			random: function (minimum, maximum) {
-				return Math.floor((Math.random() * (maximum + 1 - minimum) + minimum));
-			}
-		};
-	})
 	.directive("enableJssor", function () {
 	    return {
 	        restrict: "A",
@@ -80,7 +73,7 @@ angular.module("dang-jssor", [])
 	                        scope.jssorOnChanged({ jssorData: status });
 
 	                    scope.jssorOptions.status = status;
-	                    
+
 	                    //if (scope.jssorOptions.name) {
 	                    //    console.log("SliderChanged:", scope.jssorOptions.name, angular.toJson(status));
 	                    //}
