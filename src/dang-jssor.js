@@ -93,5 +93,5 @@ angular.module("dang-jssor", [])
 	                });
 	            }
 	        }
-	    }
+	    };
 	});
