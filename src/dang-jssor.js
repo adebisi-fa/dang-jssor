@@ -2,7 +2,7 @@
 // widlely inspired by: https://github.com/adebisi-fa/dang-jssor
 
 angular.module('gdWebApp')
-	.directive("gdEnableJssor",  ['$window', function($window) {
+	.directive("enableJssor",  ['$window', function($window) {
 	    return {
 	        restrict: "A",
 	        scope: {
