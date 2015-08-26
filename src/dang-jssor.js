@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module("dang-jssor", [])
 	.factory("jssorServices", function () {
 		return {
