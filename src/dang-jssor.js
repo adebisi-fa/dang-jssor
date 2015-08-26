@@ -25,7 +25,6 @@ angular.module("dang-jssor", [])
 										}
 
 	                if (scope.jssorOptions == undefined) {
-	                	console.log("I reassigned options here!");
 	                	scope.jssorOptions = {};
 	                }
 
