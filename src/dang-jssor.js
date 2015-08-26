@@ -1,12 +1,8 @@
-angular.module("dang-jssor", [])
-	.factory("jssorServices", function () {
-		return {
-			random: function (minimum, maximum) {
-				return Math.floor((Math.random() * (maximum + 1 - minimum) + minimum));
-			}
-		};
-	})
-	.directive("enableJssor", function () {
+'use strict';
+// widlely inspired by: https://github.com/adebisi-fa/dang-jssor
+
+angular.module('gdWebApp')
+	.directive("enableJssor",  ['$window', function($window) {
 	    return {
 	        restrict: "A",
 	        scope: {
@@ -15,78 +11,104 @@ angular.module("dang-jssor", [])
 	            jssorObject: "="
 	        },
 	        link: function (scope, element, attrs) {
-	            if (attrs.jssorTrigger == 'true') {
-	                var container = $(element).closest('.slides-container');
+            if (attrs.jssorTrigger == 'true') {
+              var container = angular.element(element).closest('.slides-container');
 
-	                if (!container.attr("id"))
-	                    container.attr("id", new Date().getTime());
+              if (!container.attr("id")) {
+                container.attr("id", new Date().getTime());
+              }
 
-	                if (scope.jssorOptions == undefined)
-	                {
-	                	console.log("I reassigned options here!");
-	                	scope.jssorOptions = {};
-	                }
+              if (scope.jssorOptions === undefined) {
+              	scope.jssorOptions = {};
+              }
 
-	                var slider = new $JssorSlider$(container.attr("id"), scope.jssorOptions);
+              var slideId = container.attr("id");
 
-                	var handle = {
-                        slidesCount: slider.$SlidesCount(),
-                        slider: slider,
-                        playTo: function (index) {
-                            slider.$PlayTo(index);
-                        },
-                        goTo: function (index) {
-                            slider.$GoTo(index);
-                        },
-                        pause: function () {
-                            slider.$Pause();
-                        },
-                        play: function () {
-                            slider.$Play();
-                        },
-                        previous: function () {
-                            slider.$Previous();
-                        },
-                        next: function () {
-                            slider.$Next();
-                        }
-                    };
+              var slider = new $JssorSlider$(slideId, scope.jssorOptions); // jshint ignore:line
 
-                	if (scope.jssorOptions)
-                    	scope.jssorOptions.handle = handle;
+            	var handle = {
+                  slidesCount: slider.$SlidesCount(),
+                  slider: slider,
+                  playTo: function (index) {
+                      slider.$PlayTo(index);
+                  },
+                  goTo: function (index) {
+                      slider.$GoTo(index);
+                  },
+                  pause: function () {
+                      slider.$Pause();
+                  },
+                  play: function () {
+                      slider.$Play();
+                  },
+                  previous: function () {
+                      slider.$Previous();
+                  },
+                  next: function () {
+                      slider.$Next();
+                  }
+                };
 
-	                if (scope.jssorObject)
-	                    scope.jssorObject = handle;
+            	if (scope.jssorOptions) {
+                	scope.jssorOptions.handle = handle;
+								}
 
-                	if (scope.jssorOptions.$StartIndex == undefined || scope.jssorOptions.$StartIndex == null)
-                		scope.jssorOptions.$StartIndex = 0;
+              if (scope.jssorObject) {
+                  scope.jssorObject = handle;
+								}
 
-                	handle.playTo(scope.jssorOptions.$StartIndex);
+            	if (scope.jssorOptions.$StartIndex === undefined || scope.jssorOptions.$StartIndex === null) {
+            		scope.jssorOptions.$StartIndex = 0;
+              }
 
-	                if (scope.jssorOptions.onReady) {
-	                	scope.jssorOptions.onReady();
-	                };
+            	handle.playTo(scope.jssorOptions.$StartIndex);
 
-	                slider.$On($JssorSlider$.$EVT_PARK, function (slideIndex, fromIndex) {
-	                    var status = null;
+              if (scope.jssorOptions.onReady) {
+              	scope.jssorOptions.onReady();
+              }
 
-	                    scope.$emit("JssorSliderChanged", status = {
-	                        name: scope.jssorOptions.name,
-	                        slideIndex: slideIndex,
-	                        fromIndex: fromIndex
-	                    });
+              var ScaleSlider = function() {
+                  var parentWidth = $('#' + slideId).parent().width();
+                  if (parentWidth) {
+                    slider.$ScaleWidth(parentWidth);
+                  }
+                  else {
+                    $window.setTimeout(ScaleSlider, 30);
+									}
 
-	                    if (scope.jssorOnChanged)
-	                        scope.jssorOnChanged({ jssorData: status });
+									angular.element(".img-slide").attr('style', ''); // remove dynamic style which was hidding 3rd and next images
+              };
 
-	                    scope.jssorOptions.status = status;
-	                    
-	                    //if (scope.jssorOptions.name) {
-	                    //    console.log("SliderChanged:", scope.jssorOptions.name, angular.toJson(status));
-	                    //}
-	                    scope.$apply();
-	                });
-	            }
+              //Scale slider after document ready
+              ScaleSlider();
+
+              //Scale slider while window load/resize/orientationchange.
+              angular.element($window).bind("load", ScaleSlider);
+							angular.element($window).bind("resize", ScaleSlider);
+							angular.element($window).bind("orientationchange", ScaleSlider);
+              //responsive code end
+
+              slider.$On($JssorSlider$. $EVT_PARK, function (slideIndex, fromIndex) {  // jshint ignore:line
+                  var status = null;
+
+                  scope.$emit("JssorSliderChanged", status = {
+                      name: scope.jssorOptions.name,
+                      slideIndex: slideIndex,
+                      fromIndex: fromIndex
+                  });
+
+                  if (scope.jssorOnChanged) {
+                      scope.jssorOnChanged({ jssorData: status });
+										}
+
+                  scope.jssorOptions.status = status;
+
+                  if (scope.jssorOptions.name) {
+                      console.log("SliderChanged:", scope.jssorOptions.name, angular.toJson(status));
+                  }
+                  scope.$apply();
+              });
+            }
 	        }
-	    }
-	});
+	    };
+	}]);
