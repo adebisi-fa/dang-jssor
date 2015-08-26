@@ -18,11 +18,11 @@ angular.module("dang-jssor", [])
 	            if (attrs.jssorTrigger == 'true') {
 	                var container = $(element).closest('.slides-container');
 
-	                if (!container.attr("id"))
+	                if (!container.attr("id")) {
 	                    container.attr("id", new Date().getTime());
+										}
 
-	                if (scope.jssorOptions == undefined)
-	                {
+	                if (scope.jssorOptions == undefined) {
 	                	console.log("I reassigned options here!");
 	                	scope.jssorOptions = {};
 	                }
@@ -52,14 +52,17 @@ angular.module("dang-jssor", [])
                         }
                     };
 
-                	if (scope.jssorOptions)
+                	if (scope.jssorOptions) {
                     	scope.jssorOptions.handle = handle;
+										}
 
-	                if (scope.jssorObject)
+	                if (scope.jssorObject) {
 	                    scope.jssorObject = handle;
+										}
 
-                	if (scope.jssorOptions.$StartIndex == undefined || scope.jssorOptions.$StartIndex == null)
+                	if (scope.jssorOptions.$StartIndex == undefined || scope.jssorOptions.$StartIndex == null) {
                 		scope.jssorOptions.$StartIndex = 0;
+									}
 
                 	handle.playTo(scope.jssorOptions.$StartIndex);
 
@@ -76,11 +79,12 @@ angular.module("dang-jssor", [])
 	                        fromIndex: fromIndex
 	                    });
 
-	                    if (scope.jssorOnChanged)
+	                    if (scope.jssorOnChanged) {
 	                        scope.jssorOnChanged({ jssorData: status });
+											}
 
 	                    scope.jssorOptions.status = status;
-	                    
+
 	                    //if (scope.jssorOptions.name) {
 	                    //    console.log("SliderChanged:", scope.jssorOptions.name, angular.toJson(status));
 	                    //}
