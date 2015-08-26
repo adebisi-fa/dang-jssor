@@ -6,7 +6,7 @@ angular.module("dang-jssor", [])
 			}
 		};
 	})
-	.directive("enableJssor", function () {
+	.directive("enableJssor", ['$window', function($window) {
 	    return {
 	        restrict: "A",
 	        scope: {
@@ -16,7 +16,7 @@ angular.module("dang-jssor", [])
 	        },
 	        link: function (scope, element, attrs) {
 	            if (attrs.jssorTrigger == 'true') {
-	                var container = $(element).closest('.slides-container');
+	                var container = angular.element(element).closest('.slides-container');
 
 	                if (!container.attr("id"))
 	                    container.attr("id", new Date().getTime());
@@ -27,7 +27,9 @@ angular.module("dang-jssor", [])
 	                	scope.jssorOptions = {};
 	                }
 
-	                var slider = new $JssorSlider$(container.attr("id"), scope.jssorOptions);
+									var slideId = container.attr("id");
+
+              		var slider = new $JssorSlider$(slideId, scope.jssorOptions);
 
                 	var handle = {
                         slidesCount: slider.$SlidesCount(),
@@ -67,6 +69,26 @@ angular.module("dang-jssor", [])
 	                	scope.jssorOptions.onReady();
 	                };
 
+									var ScaleSlider = function() {
+	                  var parentWidth = $('#' + slideId).parent().width();
+	                  if (parentWidth) {
+	                    slider.$ScaleWidth(parentWidth);
+	                  }
+	                  else {
+	                    $window.setTimeout(ScaleSlider, 30);
+										}
+
+										angular.element(".img-slide").attr('style', ''); // remove dynamic style which was hidding 3rd and next images
+		              };
+
+		              //Scale slider after document ready
+		              ScaleSlider();
+
+		              //Scale slider while window load/resize/orientationchange.
+		              angular.element($window).bind("load", ScaleSlider);
+									angular.element($window).bind("resize", ScaleSlider);
+									angular.element($window).bind("orientationchange", ScaleSlider);
+
 	                slider.$On($JssorSlider$.$EVT_PARK, function (slideIndex, fromIndex) {
 	                    var status = null;
 
@@ -80,7 +102,7 @@ angular.module("dang-jssor", [])
 	                        scope.jssorOnChanged({ jssorData: status });
 
 	                    scope.jssorOptions.status = status;
-	                    
+
 	                    //if (scope.jssorOptions.name) {
 	                    //    console.log("SliderChanged:", scope.jssorOptions.name, angular.toJson(status));
 	                    //}
@@ -89,4 +111,4 @@ angular.module("dang-jssor", [])
 	            }
 	        }
 	    }
-	});
+		}]);
