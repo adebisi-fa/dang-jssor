@@ -28,7 +28,7 @@ angular.module("dang-jssor", [])
 	                	scope.jssorOptions = {};
 	                }
 
-	                var slider = new $JssorSlider$(container.attr("id"), scope.jssorOptions);
+	                var slider = new $JssorSlider$(container.attr("id"), scope.jssorOptions); // jshint ignore:line
 
                 	var handle = {
                         slidesCount: slider.$SlidesCount(),
@@ -71,7 +71,7 @@ angular.module("dang-jssor", [])
 	                	scope.jssorOptions.onReady();
 	                };
 
-	                slider.$On($JssorSlider$.$EVT_PARK, function (slideIndex, fromIndex) {
+	                slider.$On($JssorSlider$.$EVT_PARK, function (slideIndex, fromIndex) { // jshint ignore:line
 	                    var status = null;
 
 	                    scope.$emit("JssorSliderChanged", status = {
