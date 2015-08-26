@@ -16,7 +16,7 @@ angular.module("dang-jssor", [])
 	        },
 	        link: function (scope, element, attrs) {
 	            if (attrs.jssorTrigger == 'true') {
-	                var container = $(element).closest('.slides-container');
+	                var container = angular.element(element).closest('.slides-container');
 
 	                if (!container.attr("id"))
 	                    container.attr("id", new Date().getTime());
@@ -80,7 +80,7 @@ angular.module("dang-jssor", [])
 	                        scope.jssorOnChanged({ jssorData: status });
 
 	                    scope.jssorOptions.status = status;
-	                    
+
 	                    //if (scope.jssorOptions.name) {
 	                    //    console.log("SliderChanged:", scope.jssorOptions.name, angular.toJson(status));
 	                    //}
